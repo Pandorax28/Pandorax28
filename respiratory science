@@ -1,0 +1,17 @@
+git clone https://github.com/termux/science-packages
+
+
+
+cd syntax
+go test -run=- -fuzz=ParsePrin
+
+
+$ echo '${array[spaced string]}' | shfmt
+1:16: not a valid arithmetic operator: string
+$ echo '${array[dash-string]}' | shfmt
+${array[dash - string]}
+
+$ echo '$((foo); (bar))' | shfmt
+1:1: reached ) without matching $(( with ))
+
+docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/mnt" -w /mnt my:tag <shfmt arguments>
